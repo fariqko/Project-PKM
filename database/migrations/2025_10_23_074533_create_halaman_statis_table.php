@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pendaftarans', function (Blueprint $table) {
+        Schema::create('halaman_statis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('alasan');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('judul');
+            $table->string('slug')->unique();
+            $table->text('isi');
+            $table->string('gambar_header')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pendaftarans');
+        Schema::dropIfExists('halaman_statis');
     }
 };

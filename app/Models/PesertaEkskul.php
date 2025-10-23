@@ -3,26 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AnggotaOsis extends Model
+class PesertaEkskul extends Model
 {
     use HasFactory;
 
-    protected $table = 'anggota_osis';
+    protected $table = 'peserta_ekskul';
 
     protected $fillable = [
         'siswa_id',
-        'jabatan',
-        'foto',
-        'tanggal_bergabung',
+        'ekskul_id',
+        'tanggal_gabung',
         'status',
     ];
 
     protected $casts = [
-        'tanggal_bergabung' => 'date',
+        'tanggal_gabung' => 'date',
     ];
 
     public function siswa(): BelongsTo
@@ -30,8 +28,8 @@ class AnggotaOsis extends Model
         return $this->belongsTo(Siswa::class);
     }
 
-    public function kandidats(): HasMany
+    public function ekstrakurikuler(): BelongsTo
     {
-        return $this->hasMany(Kandidat::class, 'anggota_id');
+        return $this->belongsTo(Ekstrakurikuler::class, 'ekskul_id');
     }
 }

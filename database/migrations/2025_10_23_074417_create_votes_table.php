@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pemilihan_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('kandidat_id');
-            $table->foreign('kandidat_id')->references('id')->on('kandidat_ketuas')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('kandidat_id')->constrained('kandidats')->onDelete('cascade');
+            $table->foreignId('pemilihan_id')->constrained('pemilihans')->onDelete('cascade');
+            $table->dateTime('waktu_vote');
             $table->timestamps();
+
+            $table->unique(['user_id', 'pemilihan_id']);
         });
     }
 

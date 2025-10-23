@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kegiatans', function (Blueprint $table) {
+        Schema::create('ekstrakurikulers', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kegiatan');
+            $table->string('nama');
+            $table->string('pembina');
             $table->text('deskripsi');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai')->nullable();
-            $table->string('tempat')->nullable();
-            $table->string('foto')->nullable();
-            $table->foreignId('penanggung_jawab')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('jadwal');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kegiatans');
+        Schema::dropIfExists('ekstrakurikulers');
     }
 };

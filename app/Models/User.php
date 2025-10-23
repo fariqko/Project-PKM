@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -47,23 +50,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function anggotaOsis()
+    public function siswa(): HasOne
     {
-        return $this->hasOne(AnggotaOsis::class);
+        return $this->hasOne(Siswa::class);
     }
 
-    public function kandidatKetua()
+    public function kegiatan(): HasMany
     {
-        return $this->hasOne(KandidatKetua::class);
+        return $this->hasMany(Kegiatan::class, 'penulis_id');
     }
 
-    public function votes()
+    public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
-    }
-
-    public function pendaftarans()
-    {
-        return $this->hasMany(Pendaftaran::class);
     }
 }

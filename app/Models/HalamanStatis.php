@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Berita extends Model
+class HalamanStatis extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'judul',
-        'konten', 
-        'gambar', 
-        'penulis_id',
+        'slug',
+        'isi',
+        'gambar_header',
     ];
-
-    public function penulis()
-    {
-        return $this->belongsTo(User::class, 'penulis_id');
-    }
 }
