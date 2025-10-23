@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function anggotaOsis()
+    {
+        return $this->hasOne(AnggotaOsis::class);
+    }
+
+    public function kandidatKetua()
+    {
+        return $this->hasOne(KandidatKetua::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class);
     }
 }
