@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dokumentasis', function (Blueprint $table) {
+        Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kegiatan_id')->nullable()->constrained('kegiatans')->nullOnDelete();
             $table->string('judul');
-            $table->string('file_path');
-            $table->enum('tipe', ['foto', 'video'])->default('foto');
+            $table->text('isi');
+            $table->date('tanggal');
+            $table->string('lokasi');
+            $table->string('gambar')->nullable();
+            $table->foreignId('penulis_id')->constrained('users')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokumentasis');
+        Schema::dropIfExists('kegiatans');
     }
 };

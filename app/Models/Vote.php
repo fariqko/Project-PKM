@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vote extends Model
@@ -10,23 +11,28 @@ class Vote extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pemilihan_id', 
-        'user_id', 
-        'kandidat_id'
+        'user_id',
+        'kandidat_id',
+        'pemilihan_id',
+        'waktu_vote',
     ];
 
-    public function pemilihan()
-    {
-        return $this->belongsTo(Pemilihan::class);
-    }
+    protected $casts = [
+        'waktu_vote' => 'datetime',
+    ];
 
-    public function kandidat()
-    {
-        return $this->belongsTo(KandidatKetua::class, 'kandidat_id');
-    }
-
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kandidat(): BelongsTo
+    {
+        return $this->belongsTo(Kandidat::class);
+    }
+
+    public function pemilihan(): BelongsTo
+    {
+        return $this->belongsTo(Pemilihan::class);
     }
 }

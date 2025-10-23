@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kandidat_ketuas', function (Blueprint $table) {
+        Schema::create('kandidats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('visi');
+            $table->foreignId('anggota_id')->constrained('anggota_osis')->onDelete('cascade');
+            $table->foreignId('pemilihan_id')->constrained('pemilihans')->onDelete('cascade');
+            $table->text('visi');
             $table->text('misi');
             $table->string('foto')->nullable();
+            $table->integer('jumlah_suara')->default(0);
             $table->timestamps();
+
+            $table->unique(['anggota_id', 'pemilihan_id']);
         });
     }
 
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kandidat_ketuas');
+        Schema::dropIfExists('kandidats');
     }
 };

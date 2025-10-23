@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anggota_oses', function (Blueprint $table) {
+        Schema::create('anggota_osis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('siswa_id')->unique()->constrained('siswa')->onDelete('cascade');
             $table->string('jabatan');
-            $table->string('periode');
-            $table->date('tanggal_bergabung')->nullable();
+            $table->string('foto')->nullable();
+            $table->date('tanggal_bergabung');
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anggota_oses');
+        Schema::dropIfExists('anggota_osis');
     }
 };

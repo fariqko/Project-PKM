@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('pemilihans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('periode');
-            $table->enum('status', ['draft', 'aktif', 'selesai'])->default('draft');
-            $table->date('mulai')->nullable();
-            $table->date('selesai')->nullable();
+            $table->string('nama_pemilihan');
+            $table->year('tahun');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->enum('status', ['aktif', 'selesai'])->default('aktif');
             $table->timestamps();
         });
     }
